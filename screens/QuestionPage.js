@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Constants from 'expo-constants';
@@ -138,37 +138,41 @@ function Item({ id, title, selected, onSelect }) {
 }
 
 export default function QuestionPage(props) {
-
-    
-
     const [text, setText] = React.useState('Quiz');
     const [userName, setUserName] = React.useState('Neeraj');
     const [question, setQuestion] = React.useState(' Q1: Hi What React native');
     const [selected, setSelected] = React.useState(new Map());
-    const [answerData,setAnswerData] = React.useState([]);
-    const [questionIndex,setQuestionIndex] = React.useState(0);
-   
-    function nextButtonClicked(index){
-        index = questionIndex 
+    const [answerData, setAnswerData] = React.useState([]);
+    const [questionIndex, setQuestionIndex] = React.useState(0);
+    const [nextButtonText, setNextButtonText] = React.useState('Next');
+
+    function nextButtonClicked(index) {
+        index = questionIndex
         item = index + 1
-        if (item < QuestionData.length )
-        {
         setQuestionIndex(item)
-        setAnswerData(AnswerData[item])
-        setQuestion(QuestionData[item].title)
+       if (item < QuestionData.length){
+           
+            setAnswerData(AnswerData[item])
+            setQuestion(QuestionData[item].title)
+       }
+       else {
+        setNextButtonText('Submit')
+         console.log(item)
+        if (item > QuestionData.length){
+        Alert.alert('yoyr Answer Submitted')
         }
-    }
+      
+
+       }
+        
        
-    
+    }
 
     useEffect(() => {
-        console.log(
-          "This only happens ONCE.  But it happens AFTER the initial render."
-        );
         setAnswerData(AnswerData[0])
         setQuestion(QuestionData[questionIndex].title)
 
-      }, []);
+    }, []);
 
     const onSelect = React.useCallback(
         id => {
@@ -177,8 +181,8 @@ export default function QuestionPage(props) {
 
             setSelected(newSelected);
         },
-       // [selected], // if we want multiple selected
-       []
+        // [selected], // if we want multiple selected
+        []
     );
 
 
@@ -198,7 +202,7 @@ export default function QuestionPage(props) {
                 <TextInput disabled={true}
                     mode="flat"
                     value={question}
-                    multiline = {true}
+                    multiline={true}
                     onChangeText={question => setQuestion(question)}
                 />
             </View>
@@ -220,13 +224,13 @@ export default function QuestionPage(props) {
             </SafeAreaView>
 
             <View style={styles.button}>
-                <Button color = "#008000" width={150} mode= 'contained'  >
+                <Button color="#008000" width={150} mode='contained'  >
                     Back
                  </Button>
 
-                <Button color = "#008000"  width={150} mode='contained' 
-                      onPress = { nextButtonClicked} >
-                          Next
+                <Button color="#008000" width={150} mode='contained'
+                    onPress={nextButtonClicked} >
+                    {nextButtonText}
                  </Button>
             </View>
 
@@ -282,11 +286,11 @@ const styles = StyleSheet.create({
         fontSize: 32,
     },
     button: {
-        flexDirection:'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
-        padding:20,
-         
-     },
+        padding: 20,
+
+    },
 
 
 });
