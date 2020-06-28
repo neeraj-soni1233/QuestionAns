@@ -7,16 +7,16 @@ import Constants from 'expo-constants';
 const DATA = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
+        title: 'Answer 1',
     },
     {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
+        title: 'Answer 2',
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
+        title: 'Answer 3',
+    }
 ];
 function Item({ id, title, selected, onSelect }) {
     return (
@@ -46,7 +46,8 @@ export default function QuestionPage(props) {
 
             setSelected(newSelected);
         },
-        [selected],
+       // [selected], // if we want multiple selected
+       []
     );
     return (
         <View style={styles.container}>
