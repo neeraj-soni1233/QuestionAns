@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import {useEffect} from 'react';
 import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Constants from 'expo-constants';
 
-const DATA = [
+const AnswerData1 = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         title: 'Answer 1',
@@ -18,6 +19,40 @@ const DATA = [
         title: 'Answer 3',
     }
 ];
+
+
+const AnswerData2 = [
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Answer2 1',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Answer2 2',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Answer2 3',
+    }
+];
+
+
+const QuestionData = [
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Question 1',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Question 2',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Question 3',
+    }
+];
+
+
 function Item({ id, title, selected, onSelect }) {
     return (
         <TouchableOpacity
@@ -34,10 +69,36 @@ function Item({ id, title, selected, onSelect }) {
 }
 
 export default function QuestionPage(props) {
+
+    
+
     const [text, setText] = React.useState('Quiz');
     const [userName, setUserName] = React.useState('Neeraj');
     const [question, setQuestion] = React.useState(' Q1: Hi What React native');
     const [selected, setSelected] = React.useState(new Map());
+    const [answerData,setAnswerData] = React.useState([]);
+    const [questionIndex,setQuestionIndex] = React.useState(0);
+   
+    function nextButtonClicked(index){
+        index = questionIndex 
+        item = index + 1
+       // Alert.alert(questionIndex)
+        setQuestionIndex(item )
+        console.log(questionIndex)
+        setAnswerData(AnswerData2)
+        setQuestion(QuestionData[1].title)
+      // Alert.alert(questionIndex)
+       
+    }
+
+    useEffect(() => {
+        console.log(
+          "This only happens ONCE.  But it happens AFTER the initial render."
+        );
+        setAnswerData(AnswerData1)
+        setQuestion(QuestionData[questionIndex].title)
+
+      }, []);
 
     const onSelect = React.useCallback(
         id => {
@@ -49,6 +110,8 @@ export default function QuestionPage(props) {
        // [selected], // if we want multiple selected
        []
     );
+
+
     return (
         <View style={styles.container}>
             <View style={styles.Label}>
@@ -72,7 +135,7 @@ export default function QuestionPage(props) {
 
             <SafeAreaView style={styles.container}>
                 <FlatList
-                    data={DATA}
+                    data={answerData}
                     renderItem={({ item }) => (
                         <Item
                             id={item.id}
@@ -91,8 +154,9 @@ export default function QuestionPage(props) {
                     Back
                  </Button>
 
-                <Button color = "#008000"  width={150} mode='contained' >
-                    Next
+                <Button color = "#008000"  width={150} mode='contained' 
+                      onPress = { nextButtonClicked} >
+                          Next
                  </Button>
             </View>
 
