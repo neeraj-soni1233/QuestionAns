@@ -5,10 +5,24 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity, Alert
 import { Button, TextInput } from 'react-native-paper';
 import Constants from 'expo-constants';
 
-const AnswerData1 = [
+const AnswerData = [[
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         title: 'Answer 1',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Answer 1',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Answer 1',
+    }
+],
+[
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Answer 2',
     },
     {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -16,25 +30,67 @@ const AnswerData1 = [
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Answer 3',
+        title: 'Answer 2',
     }
-];
-
-
-const AnswerData2 = [
+],
+[
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'Answer2 1',
+        title: 'Answer 3',
     },
     {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Answer2 2',
+        title: 'Answer 3',
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Answer2 3',
+        title: 'Answer 3',
     }
+],
+[
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Answer 4',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Answer 4',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Answer 4',
+    }
+],
+[
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Answer 5',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Answer 5',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Answer 5',
+    }
+],
+[
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Answer 6',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Answer 6',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Answer 6',
+    }
+]
 ];
+
 
 
 const QuestionData = [
@@ -49,6 +105,19 @@ const QuestionData = [
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
         title: 'Question 3',
+    },
+
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Question 4',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Question 5',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Question 6',
     }
 ];
 
@@ -82,20 +151,21 @@ export default function QuestionPage(props) {
     function nextButtonClicked(index){
         index = questionIndex 
         item = index + 1
-       // Alert.alert(questionIndex)
-        setQuestionIndex(item )
-        console.log(questionIndex)
-        setAnswerData(AnswerData2)
-        setQuestion(QuestionData[1].title)
-      // Alert.alert(questionIndex)
-       
+        if (item < QuestionData.length )
+        {
+        setQuestionIndex(item)
+        setAnswerData(AnswerData[item])
+        setQuestion(QuestionData[item].title)
+        }
     }
+       
+    
 
     useEffect(() => {
         console.log(
           "This only happens ONCE.  But it happens AFTER the initial render."
         );
-        setAnswerData(AnswerData1)
+        setAnswerData(AnswerData[0])
         setQuestion(QuestionData[questionIndex].title)
 
       }, []);
